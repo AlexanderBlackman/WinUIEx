@@ -28,7 +28,9 @@ namespace WinUIExSample
     {
         private readonly Queue<string> windowEvents = new Queue<string>();
         private readonly WindowMessageMonitor monitor;
-        
+        private MonitorInfo selectedMonitor = null;
+        public IList<MonitorInfo> Monitors { get; set; }
+
         public MainWindow()
         {
             this.InitializeComponent();
@@ -37,10 +39,10 @@ namespace WinUIExSample
             this.SetTitleBarBackgroundColors(Microsoft.UI.Colors.CornflowerBlue);
            
             monitor = new WindowMessageMonitor(this);
-            var monitors = MonitorInfo.GetDisplayMonitors();
-            foreach (var monitor in monitors.Reverse())
+            Monitors = MonitorInfo.GetDisplayMonitors();
+            foreach (var monitor in Monitors.Reverse())
                 Log("  - " + monitor.ToString());
-            Log($"{monitors.Count} monitors detected");
+            Log($"{Monitors.Count} monitors detected");
         }
 
         private void Log(string message)
@@ -192,7 +194,13 @@ namespace WinUIExSample
             var button = sender as Button;
             SanitizeXY();
             Placement position = (Placement)Enum.Parse(typeof(Placement), button.Content.ToString());
-            this.MoveTo(position, x_box.Value, y_box.Value, IsForcedTowardsCenter);
+            this.MoveTo(position, x_box.Value, y_box.Value, IsForcedTowardsCenter, selectedMonitor=null);
+        }
+
+        private void newMonitorSelected(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((ComboBox)sender).SelectedIndex;
+            selectedMonitor = Monitors[index];
         }
     }
 }

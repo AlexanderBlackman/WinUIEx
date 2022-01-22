@@ -102,6 +102,7 @@
                         Click="moveWindowButton_Clicked"
                         Content="BottomRight" />
                 </Grid>
+                <ComboBox ItemsSource="{x:Bind Monitors}" Header="Monitor" SelectionChanged="newMonitorSelected"/>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="X: " />
                     <NumberBox

@@ -161,6 +161,18 @@ namespace WinUIEx
             => HwndExtensions.MoveTo(window.GetWindowHandle(), Placement.TopLeft, x, y);
 
         /// <summary>
+        /// Positions the window without resizing. Window will be below and right of the specified coordinates.
+        /// </summary>
+        /// <param name="window">The window to be moved</param>
+        /// <param name="x">Left side of the window</param>
+        /// <param name="y">Top side of the window</param>
+        /// <param name="targetMonitor">The monitor you want the window moved to</param>
+        public static void MoveTo(this Microsoft.UI.Xaml.Window window, double x, double y, MonitorInfo targetMonitor)
+            => HwndExtensions.MoveTo(window.GetWindowHandle(), Placement.TopLeft, x, y, false, targetMonitor);
+
+
+
+        /// <summary>
         /// Moves the window to the enum specified edge of the screen
         /// </summary>
         /// <param name="window">The window that is to be moved</param>
@@ -186,9 +198,21 @@ namespace WinUIEx
         /// <param name="relativeTo">The Placement enum the window will be moved relative to</param>
         /// <param name="xOffset">The x-axis value to move away from the edge</param>
         /// <param name="yOffset">The y-axis value to move away from the edge </param>
-        /// <param name="forceTowardsCenter">Forces the window away from edge and towards the center by absolute XY values</param>
+        /// <param name="forceTowardsCenter">Forces the window away from edge and towards the center of the current monitor by absolute XY values</param>
         public static void MoveTo(this Microsoft.UI.Xaml.Window window, Placement relativeTo, double xOffset, double yOffset, bool forceTowardsCenter)
             => HwndExtensions.MoveTo(window.GetWindowHandle(), relativeTo, xOffset, yOffset, forceTowardsCenter);
+
+        /// <summary>
+        /// Moves Window to the enum specified edge of the screen  
+        /// </summary>
+        /// <param name="window"></param>
+        /// <param name="relativeTo">The Placement enum the window will be moved relative to</param>
+        /// <param name="xOffset">The x-axis value to move away from the edge</param>
+        /// <param name="yOffset">The y-axis value to move away from the edge </param>
+        /// <param name="forceTowardsCenter">Forces the window away from edge and towards the center of the current monitor by absolute XY values</param>
+        public static void MoveTo(this Microsoft.UI.Xaml.Window window, Placement relativeTo, double xOffset, double yOffset, bool forceTowardsCenter, MonitorInfo targetMonitor)
+            => HwndExtensions.MoveTo(window.GetWindowHandle(), relativeTo, xOffset, yOffset, forceTowardsCenter, targetMonitor);
+
 
         /// <summary>
         /// Positions the window without resizing, Window will be centred around the point.

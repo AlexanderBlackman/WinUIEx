@@ -7,6 +7,7 @@ using Windows.Win32.UI.WindowsAndMessaging;
 using Windows.Win32.Graphics.Gdi;
 using WinRT;
 using Microsoft.UI;
+using System.Collections.Generic;
 
 namespace WinUIEx
 {
@@ -85,6 +86,14 @@ namespace WinUIEx
             if (!result)
                 Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
         }
+
+        //private static HMONITOR[] GetAllMonitors()
+        //{
+            
+        //    //ALEX I do not understand this at all
+        //  return  var monitors = PInvoke.EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, MonitorEnum, IntPtr.Zero);
+        //}
+
         /*public static IntPtr UpdateLayeredWindow(IntPtr hwnd)
         {
             var h = new HWND((nint)hwnd);
@@ -162,8 +171,13 @@ namespace WinUIEx
         /// <param name="hwnd">The window handle</param>
         /// <param name="position">The enum edge position from Positions</param>
         /// <param name="forceTowardsCenter">Forces the window away from edge and towards the center by absolute XY values</param>
-        public static void MoveTo(IntPtr hwnd, Placement position, double xOffset, double yOffset, bool forceTowardsCenter = false)
+        public static void MoveTo(IntPtr hwnd, Placement position, double xOffset, double yOffset, bool forceTowardsCenter = false, MonitorInfo? targetMonitor=null)
         {
+
+          //  INSERT WAY TO CONVERT MONITOR INFO TO HMONITOR
+          // Have ? conditional to make 
+
+
             var hwndDesktop = PInvoke.MonitorFromWindow(new(hwnd), MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
             MONITORINFO info = new MONITORINFO();
             info.cbSize = 40;
